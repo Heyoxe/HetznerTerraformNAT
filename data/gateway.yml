@@ -1,0 +1,23 @@
+#cloud-config
+
+## Updating and downloading packages
+packages:
+  - iptables
+package_update: true
+package_upgrade: true
+
+## Running Commands
+runcmd:
+  - sysctl -w net.ipv4.ip_forward=1
+  - sed -i -e '/^#net\.ipv4\.ip_forward=1/s/^.*$/net.ipv4.ip_forward=1/' /etc/sysctl.conf
+  - iptables -t nat -A POSTROUTING -s "${network_prefix}" -o "$(route -n | awk '$1 == "0.0.0.0" {print $8}')" -j MASQUERADE
+  - |
+    debconf-set-selections <<EOF
+    iptables-persistent iptables-persistent/autosave_v4 boolean true
+    iptables-persistent iptables-persistent/autosave_v6 boolean true
+    EOF
+  - apt-get -y install iptables-persistent
+
+# Rebooting the instance
+power_state:
+  mode: reboot

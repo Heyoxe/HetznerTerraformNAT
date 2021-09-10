@@ -1,0 +1,20 @@
+#cloud-config
+
+## Writing files
+write_files:
+  ## Adding your gateway
+  - content: |
+      auto ens10
+      iface ens10 inet dhcp
+        post-up ip route change default via 10.0.0.1
+    path: /etc/network/interfaces.d/90-gateway
+    owner: root:root
+    permissions: '0751'
+
+runcmd:
+  # - sed -i -e '/^source \/etc\/network\/interfaces.d\/\*/s/^.$/source /etc/network/interfaces.d/gateway/' /etc/network/interfaces # Disabling that makes the internet unreachable and I don't understand why
+  # But it seems like even without disabling the public interfaces our server is still not accessible from outside so eh. (even without firewall)
+
+# Rebooting the instance
+power_state:
+  mode: reboot
