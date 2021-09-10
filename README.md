@@ -1,6 +1,6 @@
 # Stack
 **THIS IS NOT A PRODUCTION-READY SETUP, IT IS NOT SECURE, IT DOES NOT WORK AS IT SHOULD, DO NOT USE**
-Simple Terraform repo to provision and configure servers routed through a NAT gateway on Hetzner.
+Simple Terraform repo to provision and configure servers routed through a NAT gateway on [Hetzner](https://www.hetzner.com/).
 
 This will setup:
 - 1x Private Network
