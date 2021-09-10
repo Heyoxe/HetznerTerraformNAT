@@ -17,6 +17,10 @@ $ mtr google.com
 $ traceroute google.com
 ```
 
+## Upgrades
+- You could probably replace the hard-coded ip ranges etc by variables in Terraform
+- You should also look at completely disabling the public interface of the clients but that doesn't work at all atm
+
 ## Sources
 https://docs.digitalocean.com/products/networking/vpc/resources/droplet-as-gateway/
 https://www.mybluelinux.com/debian-permanent-static-routes/
